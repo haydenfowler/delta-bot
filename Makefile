@@ -87,3 +87,32 @@ docker-clean: ## Clean up Docker images and containers
 # Health check
 health: ## Check application health
 	@curl -s http://localhost:8080/health | jq . || echo "Application not running or jq not installed"
+
+# Terraform targets
+tf-init: ## Initialize Terraform
+	cd terraform && terraform init
+
+tf-plan: ## Plan Terraform changes
+	cd terraform && terraform plan
+
+tf-apply: ## Apply Terraform changes
+	cd terraform && terraform apply
+
+tf-destroy: ## Destroy Terraform infrastructure
+	cd terraform && terraform destroy
+
+tf-output: ## Show Terraform outputs
+	cd terraform && terraform output
+
+tf-fmt: ## Format Terraform files
+	cd terraform && terraform fmt -recursive
+
+tf-validate: ## Validate Terraform configuration
+	cd terraform && terraform validate
+
+# AWS/Docker deployment targets
+docker-push: ## Build and push Docker image to ECR
+	@echo "Run 'make tf-output' to get ECR repository URL"
+	@echo "Then run the AWS ECR login and docker push commands"
+
+aws-deploy: tf-apply ## Deploy to AWS (alias for tf-apply)

@@ -118,6 +118,13 @@ make docker-down           # Stop containers
 make docker-logs           # View container logs
 make docker-restart        # Restart containers
 make docker-clean          # Clean up images and containers
+
+# Terraform commands
+make tf-init       # Initialize Terraform
+make tf-plan       # Plan infrastructure changes
+make tf-apply      # Deploy to AWS
+make tf-destroy    # Destroy AWS infrastructure
+make tf-output     # Show deployment outputs
 ```
 
 ## API Endpoints
@@ -213,6 +220,32 @@ make docker-down-monitoring     # Stop all monitoring
 ```
 
 **💡 How it works:** Single `docker-compose.yml` with [profiles](https://docs.docker.com/compose/profiles/) - sidecars only start when using the `monitoring` profile.
+
+## AWS Deployment
+
+Deploy to AWS ECS Fargate with complete infrastructure automation:
+
+```bash
+# Quick deployment (after AWS CLI setup)
+make tf-init      # Initialize Terraform
+make tf-plan      # Review infrastructure changes  
+make tf-apply     # Deploy to AWS
+```
+
+**📖 Complete deployment guide:** See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed step-by-step instructions including:
+- AWS CLI and Terraform installation
+- Credentials setup
+- Docker image building and pushing to ECR
+- Infrastructure deployment
+- Monitoring and troubleshooting
+
+**🏗️ Infrastructure includes:**
+- VPC with public subnets across multiple AZs
+- Application Load Balancer with health checks
+- ECS Fargate cluster with auto-scaling
+- CloudWatch logging and monitoring alarms
+- SSM Parameter Store for secure secrets
+- ECR repository for Docker images
 
 ### Docker Features
 - **Multi-stage build**: Optimized image size with Go build stage

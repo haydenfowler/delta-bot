@@ -1,0 +1,21 @@
+# Copy this file to terraform.tfvars and fill in your values
+
+# AWS Configuration
+aws_region  = "us-east-1"
+environment = "production"
+
+# Application Configuration
+new_relic_license_key = "your-newrelic-license-key-here"
+new_relic_app_name    = "delta-bot"
+
+# Trading Configuration
+dry_run               = true
+binance_api_key       = "your-binance-api-key-here"
+binance_secret_key    = "your-binance-secret-key-here"
+min_profit_threshold  = 0.5
+max_trade_amount      = 1000
+
+# ECS Configuration
+cpu           = 256
+memory        = 512
+desired_count = 1
