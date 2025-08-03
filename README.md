@@ -225,6 +225,7 @@ make docker-down-monitoring     # Stop all monitoring
 
 Deploy to AWS ECS Fargate with complete infrastructure automation:
 
+### Single Environment (Simple)
 ```bash
 # Quick deployment (after AWS CLI setup)
 make tf-init      # Initialize Terraform
@@ -232,12 +233,22 @@ make tf-plan      # Review infrastructure changes
 make tf-apply     # Deploy to AWS
 ```
 
-**📖 Complete deployment guide:** See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed step-by-step instructions including:
-- AWS CLI and Terraform installation
-- Credentials setup
-- Docker image building and pushing to ECR
-- Infrastructure deployment
-- Monitoring and troubleshooting
+### Multi-Environment (Recommended)
+```bash
+# Testing environment first (always dry_run=true for safety)
+make tf-init-test    # Initialize testing backend
+make tf-apply-test   # Deploy to testing (shadow trades only)
+
+# Production environment (configurable dry_run)
+make tf-init-prod    # Initialize production backend  
+make tf-apply-prod   # Deploy to production
+```
+
+**📖 Deployment guides:**
+- [DEPLOYMENT.md](./DEPLOYMENT.md) - Complete single-environment setup
+- [terraform/MULTI_ENVIRONMENT_SETUP.md](./terraform/MULTI_ENVIRONMENT_SETUP.md) - Multi-environment configuration
+
+**Features:** AWS CLI setup, Terraform installation, credentials, Docker ECR, infrastructure deployment, monitoring
 
 **🏗️ Infrastructure includes:**
 - VPC with public subnets across multiple AZs

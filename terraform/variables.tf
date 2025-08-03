@@ -2,7 +2,7 @@
 variable "aws_region" {
   description = "AWS region"
   type        = string
-  default     = "us-east-1"
+  default     = "ap-southeast-1"
 }
 
 variable "environment" {
@@ -96,4 +96,42 @@ variable "max_trade_amount" {
   description = "Maximum trade amount"
   type        = number
   default     = 1000
+}
+
+# Additional ECS Configuration
+variable "app_name" {
+  description = "Application name"
+  type        = string
+  default     = "delta-bot"
+}
+
+variable "ecr_repository_name" {
+  description = "ECR repository name"
+  type        = string
+  default     = "delta-bot"
+}
+
+variable "task_cpu" {
+  description = "CPU units for the task (256, 512, 1024, 2048, 4096)"
+  type        = number
+  default     = 256
+}
+
+variable "task_memory" {
+  description = "Memory (MB) for the task"
+  type        = number
+  default     = 512
+}
+
+# Monitoring Configuration
+variable "enable_newrelic_monitoring" {
+  description = "Enable NewRelic monitoring sidecars"
+  type        = bool
+  default     = true
+}
+
+variable "log_retention_days" {
+  description = "CloudWatch log retention in days"
+  type        = number
+  default     = 14
 }

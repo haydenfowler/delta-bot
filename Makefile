@@ -88,31 +88,50 @@ docker-clean: ## Clean up Docker images and containers
 health: ## Check application health
 	@curl -s http://localhost:8080/health | jq . || echo "Application not running or jq not installed"
 
-# Terraform targets
-tf-init: ## Initialize Terraform
-	cd terraform && terraform init
-
-tf-plan: ## Plan Terraform changes
-	cd terraform && terraform plan
-
-tf-apply: ## Apply Terraform changes
-	cd terraform && terraform apply
-
-tf-destroy: ## Destroy Terraform infrastructure
-	cd terraform && terraform destroy
-
-tf-output: ## Show Terraform outputs
-	cd terraform && terraform output
-
+# Terraform utility targets (safe - no state changes)
 tf-fmt: ## Format Terraform files
 	cd terraform && terraform fmt -recursive
 
 tf-validate: ## Validate Terraform configuration
 	cd terraform && terraform validate
 
+# Environment-specific Terraform targets
+tf-init-prod: ## Initialize Terraform for production
+	cd terraform && terraform init -backend-config="environments/backend-production.conf"
+
+tf-plan-prod: ## Plan Terraform changes for production
+	cd terraform && terraform plan -var-file="environments/production.tfvars"
+
+tf-apply-prod: ## Apply Terraform changes for production
+	cd terraform && terraform apply -var-file="environments/production.tfvars"
+
+tf-destroy-prod: ## Destroy production infrastructure
+	cd terraform && terraform destroy -var-file="environments/production.tfvars"
+
+tf-init-test: ## Initialize Terraform for testing
+	cd terraform && terraform init -backend-config="environments/backend-testing.conf"
+
+tf-plan-test: ## Plan Terraform changes for testing
+	cd terraform && terraform plan -var-file="environments/testing.tfvars"
+
+tf-apply-test: ## Apply Terraform changes for testing
+	cd terraform && terraform apply -var-file="environments/testing.tfvars"
+
+tf-destroy-test: ## Destroy testing infrastructure
+	cd terraform && terraform destroy -var-file="environments/testing.tfvars"
+
+tf-output-prod: ## Show Terraform outputs for production
+	cd terraform && terraform output
+
+tf-output-test: ## Show Terraform outputs for testing  
+	cd terraform && terraform output
+
 # AWS/Docker deployment targets
 docker-push: ## Build and push Docker image to ECR
-	@echo "Run 'make tf-output' to get ECR repository URL"
+	@echo "Run 'make tf-output-prod' or 'make tf-output-test' to get ECR repository URL"
 	@echo "Then run the AWS ECR login and docker push commands"
 
-aws-deploy: tf-apply ## Deploy to AWS (alias for tf-apply)
+aws-deploy: ## Deploy to AWS - use tf-apply-prod or tf-apply-test
+	@echo "❌ Use environment-specific commands:"
+	@echo "   make tf-apply-test   # Deploy to testing"
+	@echo "   make tf-apply-prod   # Deploy to production"

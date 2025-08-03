@@ -48,3 +48,8 @@ terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 terraform/terraform.tfvars
 terraform/*.tfplan
+
+# Environment-specific files (keep templates)
+.env.production
+.env.testing
+terraform/environments/*.tfvars.local

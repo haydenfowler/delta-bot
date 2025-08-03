@@ -52,14 +52,14 @@ aws configure
 You'll be prompted for:
 - **AWS Access Key ID**: From your AWS IAM user
 - **AWS Secret Access Key**: From your AWS IAM user  
-- **Default region name**: `us-east-1` (or your preferred region)
+- **Default region name**: `ap-southeast-1` (or your preferred region)
 - **Default output format**: `json`
 
 ### Option B: Environment Variables
 ```bash
 export AWS_ACCESS_KEY_ID="your-access-key"
 export AWS_SECRET_ACCESS_KEY="your-secret-key"
-export AWS_DEFAULT_REGION="us-east-1"
+export AWS_DEFAULT_REGION="ap-southeast-1"
 ```
 
 ### Getting AWS Credentials
@@ -83,7 +83,7 @@ If you don't have AWS credentials:
 2. **Edit `terraform/terraform.tfvars`** with your values:
    ```hcl
    # AWS Configuration
-   aws_region  = "us-east-1"
+   aws_region  = "ap-southeast-1"
    environment = "production"
 
    # Application Configuration  
@@ -145,16 +145,16 @@ If you don't have AWS credentials:
    docker build -t delta-bot .
    
    # Tag for ECR (replace with your ECR URL from step 2)
-   docker tag delta-bot:latest 123456789012.dkr.ecr.us-east-1.amazonaws.com/delta-bot:latest
+   docker tag delta-bot:latest 123456789012.dkr.ecr.ap-southeast-1.amazonaws.com/delta-bot:latest
    ```
 
 4. **Login to ECR and push:**
    ```bash
    # Get login command (replace region if different)
-   aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 123456789012.dkr.ecr.us-east-1.amazonaws.com
+   aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 123456789012.dkr.ecr.ap-southeast-1.amazonaws.com
    
    # Push the image
-   docker push 123456789012.dkr.ecr.us-east-1.amazonaws.com/delta-bot:latest
+   docker push 123456789012.dkr.ecr.ap-southeast-1.amazonaws.com/delta-bot:latest
    ```
 
 ## 🚀 Step 6: Deploy Infrastructure

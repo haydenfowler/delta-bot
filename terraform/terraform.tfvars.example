@@ -1,7 +1,7 @@
 # Copy this file to terraform.tfvars and fill in your values
 
 # AWS Configuration
-aws_region  = "us-east-1"
+aws_region  = "ap-southeast-1"
 environment = "production"
 
 # Application Configuration
