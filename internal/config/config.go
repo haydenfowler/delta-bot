@@ -33,9 +33,19 @@ func Load() *Config {
 		log.Printf("Warning: .env file not found or could not be loaded: %v", err)
 	}
 
-	dryRun, _ := strconv.ParseBool(getEnv("DRY_RUN", "true"))
-	minProfitThreshold, _ := strconv.ParseFloat(getEnv("MIN_PROFIT_THRESHOLD", "0.5"), 64)
-	maxTradeAmount, _ := strconv.ParseFloat(getEnv("MAX_TRADE_AMOUNT", "1000"), 64)
+	dryRun, err := strconv.ParseBool(getEnv("DRY_RUN", "true"))
+	if err != nil {
+		log.Fatalf("Failed to parse DRY_RUN: %v", err)
+	}
+
+	minProfitThreshold, err := strconv.ParseFloat(getEnv("MIN_PROFIT_THRESHOLD", "0.5"), 64)
+	if err != nil {
+		log.Fatalf("Failed to parse MIN_PROFIT_THRESHOLD: %v", err)
+	}
+	maxTradeAmount, err := strconv.ParseFloat(getEnv("MAX_TRADE_AMOUNT", "1000"), 64)
+	if err != nil {
+		log.Fatalf("Failed to parse MAX_TRADE_AMOUNT: %v", err)
+	}
 
 	return &Config{
 		Port:     getEnv("PORT", "8080"),
