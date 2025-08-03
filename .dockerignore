@@ -1,0 +1,57 @@
+# Binaries
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Version control
+.git/
+.gitignore
+
+# Documentation (not needed in container)
+*.md
+docs/
+
+# Docker files
+docker-compose*.yml
+Dockerfile*
+.dockerignore
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+terraform.tfvars
+
+# Build artifacts
+coverage.html
+coverage.out
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

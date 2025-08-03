@@ -1,0 +1,31 @@
+# NewRelic Infrastructure Agent Configuration
+license_key: ${NRIA_LICENSE_KEY}
+display_name: ${NRIA_DISPLAY_NAME:-delta-bot-infrastructure}
+verbose: 0
+
+# Custom attributes for the host
+custom_attributes:
+  service: delta-bot
+  environment: ${ENVIRONMENT:-development}
+  team: trading
+  component: arbitrage-bot
+
+# Enable integrations
+integrations_config:
+  - name: nri-docker
+    config:
+      docker_api_version: 1.24
+    
+# Log forwarding (if not using Fluent Bit)
+logs:
+  - name: delta-bot-logs
+    file: /var/log/delta-bot/*.log
+    attributes:
+      service: delta-bot
+      logtype: application
+      
+  - name: docker-logs  
+    file: /var/lib/docker/containers/*/*.log
+    attributes:
+      service: delta-bot
+      logtype: container
